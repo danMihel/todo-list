@@ -34,7 +34,7 @@ export default {
     },
     createPost() {
       const newPost = {
-        id: Date.now(),
+        id: toString(Date.now()) ,
         body: this.body,
         date: new Date().toLocaleDateString(),
         done: "В работе",

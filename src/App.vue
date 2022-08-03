@@ -11,15 +11,12 @@
           class="search-input"
           type=" text"
           placeholder="Поиск ID, Имени, статуса или даты"
+          v-model="searchQuery"
         />
       </div>
       <div>
         <span>Сортировать по:</span>
-        <SelectItem 
-          :modelValue="selectedSort"
-          @update:modelValue="sortedPosts"
-          :options="sortOptons"
-        />
+        <SelectItem v-model="selectedSort" :options="sortOptions" />
       </div>
     </div>
     <div class="todo-header">
@@ -30,8 +27,8 @@
       </div>
     </div>
     <div v-if="this.$store.state.posts.length == 0">Дел пока нет</div>
-    <div v-else class="todo-container" v-for="post in $store.state.posts">
-      <TodoItem :post="post" :key="post.data" />
+    <div v-else class="todo-container" v-for="post in searchPost">
+      <TodoItem :post="post" :key="post.body" />
     </div>
     <PostForm v-model:show="visibleForm" />
   </div>
@@ -45,27 +42,43 @@ export default {
   name: "App",
   data() {
     return {
+      searchQuery: "",
       postsLoaded: false,
       visibleForm: false,
       selectedSort: "",
-      sortOptons: [
+      sortOptions: [
         { value: "date", name: "Дата" },
         { value: "done", name: "Статус" },
       ],
     };
   },
   components: { TodoItem, PostForm, SelectItem },
-  watch:{
-   selectedSort(newValue) {
-    console.log(newValue, 'asf')
-   }
+  watch: {
+    selectedSort(newValue) {
+      const res = [...this.$store.state.posts].sort((a, b) =>
+        a[newValue]?.localeCompare(b[newValue])
+      );
+      localStorage.posts = JSON.stringify(res);
+      this.$store.commit("setPosts", res);
+    },
+  },
+  computed: {
+    sortedPosts() {
+      return [...this.$store.state.posts].sort((a, b) =>
+        a[this.selectedSort]?.localeCompare(b[this.selectedSort])
+      );
+    },
+    searchPost() {
+      return this.sortedPosts.filter(
+        (post) =>
+          post.date.includes(this.searchQuery) ||
+          post.id.includes(this.searchQuery) ||
+          post.done.includes(this.searchQuery) ||
+          post.body.includes(this.searchQuery)
+      );
+    },
   },
   methods: {
-     sortedPosts() {
-      const res= [... this.$store.state.posts].sort((post1, post2) => post1[this.$store.state.selectedSort]?.localeCompare(post2[this.$store.state.selectedSort]))
-      localStorage.posts = JSON.stringify(res)
-      
-     },
     showForm() {
       this.visibleForm = true;
     },
@@ -75,7 +88,6 @@ export default {
       this.$store.commit("setPosts", JSON.parse(localStorage.posts));
     }
   },
-  
 };
 </script>
 <style>
