@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header-container">
       <div class="header">To do list</div>
-      <div class="radio-btn">+</div>
+      <div @click="showForm" class="radio-btn">+</div>
     </div>
     <div class="search-panel">
       <div>
@@ -15,9 +15,8 @@
       </div>
       <div>
         <span>Сортировать по:</span>
-        <select>
-          <option>Дата</option>
-        </select>
+        <SelectItem 
+        v-model="selectedSort"/>
       </div>
     </div>
     <div class="todo-header">
@@ -27,37 +26,48 @@
         <div class="todo-header__date left-border">Дата</div>
       </div>
     </div>
-    <div class="todo-container" v-for="post in $store.state.posts">
+    <div v-if="this.$store.state.posts.length == 0">
+      Дел пока нет
+    </div>
+    <div v-else class="todo-container" v-for="post in $store.state.posts">
       <TodoItem :post = "post" :key="post.data" />
     </div>
-    <PostForm />
+    <PostForm v-model:show="visibleForm" />
   </div>
 </template>
 
 <script>
 import TodoItem from "./components/TodoItem.vue";
 import PostForm from "./components/PostForm.vue";
+import SelectItem from "./components/SelectItem.vue";
 export default {
   name: "App",
-  components: { TodoItem, PostForm },
+  data(){
+    return{
+      postsLoaded: false,
+      visibleForm: false,
+      selectedSort: '',
+      sortOptons: [
+        {value: 'date', name: "Дата"},
+        {value: 'date', name: "Статус"}
+      ]
+    }
+  },
+  components: { TodoItem, PostForm, SelectItem },
+  methods:{
+    showForm(){
+      this. visibleForm = true
+    }
+  },
   mounted(){
     if(localStorage.posts){
       this.$store.commit('setPosts')
-    } console.log('posting')
+    } 
   },
-
-};
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
+</script>
+<style>
+
 img {
   width: 18px;
   height: 18px;
