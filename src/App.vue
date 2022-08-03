@@ -61,7 +61,7 @@ export default {
   },
   mounted(){
     if(localStorage.posts){
-      this.$store.commit('setPosts')
+      this.$store.commit('setPosts', JSON.parse(localStorage.posts))
     } 
   },
 }

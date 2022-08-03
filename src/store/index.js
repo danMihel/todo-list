@@ -2,14 +2,17 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    posts: []
-      
+    posts: [],
+    sortOptons: [
+      {value: 'date', name: "Дата"},
+      {value: 'date', name: "Статус"}
+    ]
   },
   getters: {
   },
   mutations: {
-    setPosts(state){
-      state.posts = JSON.parse(localStorage.posts)
+    setPosts(state, posts){
+      state.posts = posts 
     }
   },
   actions: {
