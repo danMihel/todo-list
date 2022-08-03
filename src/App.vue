@@ -16,7 +16,10 @@
       <div>
         <span>Сортировать по:</span>
         <SelectItem 
-        v-model="selectedSort"/>
+          :modelValue="selectedSort"
+          @update:modelValue="sortedPosts"
+          :options="sortOptons"
+        />
       </div>
     </div>
     <div class="todo-header">
@@ -26,11 +29,9 @@
         <div class="todo-header__date left-border">Дата</div>
       </div>
     </div>
-    <div v-if="this.$store.state.posts.length == 0">
-      Дел пока нет
-    </div>
+    <div v-if="this.$store.state.posts.length == 0">Дел пока нет</div>
     <div v-else class="todo-container" v-for="post in $store.state.posts">
-      <TodoItem :post = "post" :key="post.data" />
+      <TodoItem :post="post" :key="post.data" />
     </div>
     <PostForm v-model:show="visibleForm" />
   </div>
@@ -42,32 +43,42 @@ import PostForm from "./components/PostForm.vue";
 import SelectItem from "./components/SelectItem.vue";
 export default {
   name: "App",
-  data(){
-    return{
+  data() {
+    return {
       postsLoaded: false,
       visibleForm: false,
-      selectedSort: '',
+      selectedSort: "",
       sortOptons: [
-        {value: 'date', name: "Дата"},
-        {value: 'date', name: "Статус"}
-      ]
-    }
+        { value: "date", name: "Дата" },
+        { value: "done", name: "Статус" },
+      ],
+    };
   },
   components: { TodoItem, PostForm, SelectItem },
-  methods:{
-    showForm(){
-      this. visibleForm = true
+  watch:{
+   selectedSort(newValue) {
+    console.log(newValue, 'asf')
+   }
+  },
+  methods: {
+     sortedPosts() {
+      const res= [... this.$store.state.posts].sort((post1, post2) => post1[this.$store.state.selectedSort]?.localeCompare(post2[this.$store.state.selectedSort]))
+      localStorage.posts = JSON.stringify(res)
+      
+     },
+    showForm() {
+      this.visibleForm = true;
+    },
+  },
+  mounted() {
+    if (localStorage.posts) {
+      this.$store.commit("setPosts", JSON.parse(localStorage.posts));
     }
   },
-  mounted(){
-    if(localStorage.posts){
-      this.$store.commit('setPosts', JSON.parse(localStorage.posts))
-    } 
-  },
-}
+  
+};
 </script>
 <style>
-
 img {
   width: 18px;
   height: 18px;
