@@ -7,12 +7,8 @@
     <div class="search-panel">
       <div>
         <img src="@/assets/Vector.png" />
-        <input
-          class="search-input"
-          type=" text"
-          placeholder="Поиск ID, Имени, статуса или даты"
-          v-model="searchQuery"
-        />
+        <input class="search-input" type=" text" placeholder="Поиск ID, Имени, статуса или даты"
+          v-model="searchQuery" />
       </div>
       <div>
         <span>Сортировать по:</span>
@@ -53,28 +49,24 @@ export default {
     };
   },
   components: { TodoItem, PostForm, SelectItem },
-  watch: {
-    selectedSort(newValue) {
-      const res = [...this.$store.state.posts].sort((a, b) =>
-        a[newValue]?.localeCompare(b[newValue])
-      );
-      localStorage.posts = JSON.stringify(res);
-      this.$store.commit("setPosts", res);
-    },
-  },
   computed: {
     sortedPosts() {
-      return [...this.$store.state.posts].sort((a, b) =>
-        a[this.selectedSort]?.localeCompare(b[this.selectedSort])
-      );
+      if(this.selectedSort == "done"){
+        return [...this.$store.state.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
+      } else {
+        return [...this.$store.state.posts].sort((a, b) => console.log(new Date(a.date.split(".").reverse().join('-')) < new Date(b.date.split(".").reverse().join('-'))))    
+      
+        
+      }
+      
+      
     },
     searchPost() {
       return this.sortedPosts.filter(
-        (post) =>
-          post.date.includes(this.searchQuery) ||
-          post.id.includes(this.searchQuery) ||
-          post.done.includes(this.searchQuery) ||
-          post.body.includes(this.searchQuery)
+        (post => post.body.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+        post.id.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+        post.date.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+        post.done.toLowerCase().includes(this.searchQuery.toLowerCase()))
       );
     },
   },
@@ -97,6 +89,7 @@ img {
   margin: auto;
   padding-right: 10px;
 }
+
 .container {
   margin-left: 40px;
   margin-right: 40px;
@@ -114,6 +107,7 @@ img {
   font-size: 24px;
   line-height: 132%;
 }
+
 .radio-btn {
   font-family: "Roboto";
   width: 40px;
@@ -125,26 +119,31 @@ img {
   justify-content: center;
   font-size: 2.5rem;
 }
+
 .search-panel {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 15px;
 }
+
 .search-panel img {
   padding-left: 10px;
 }
+
 .search-input {
   min-width: 250px;
   border: none;
   margin-left: 10px;
 }
+
 .left-border {
   border-left: solid 1px gray;
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 6px;
 }
+
 .todo-header {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -160,6 +159,7 @@ img {
 .todo-header__discript {
   margin-left: 50px;
 }
+
 .todo-header__date {
   margin-right: 100px;
   margin-left: 65px;
