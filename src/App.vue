@@ -54,7 +54,7 @@ export default {
       if(this.selectedSort == "done"){
         return [...this.$store.state.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
       } else {
-        return [...this.$store.state.posts].sort((a, b) => console.log(new Date(a.date.split(".").reverse().join('-')) < new Date(b.date.split(".").reverse().join('-'))))    
+        return [...this.$store.state.posts].sort((a, b) => new Date(b.date) - new Date(a.date))
       
         
       }
