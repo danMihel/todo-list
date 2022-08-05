@@ -7,12 +7,19 @@
     <div class="search-panel">
       <div>
         <img src="@/assets/Vector.png" />
-        <input class="search-input" type=" text" placeholder="Поиск ID, Имени, статуса или даты"
-          v-model="searchQuery" />
+        <input
+          class="search-input"
+          type=" text"
+          placeholder="Поиск ID, Имени, статуса или даты"
+          v-model="this.$store.state.searchQuery"
+        />
       </div>
       <div>
         <span>Сортировать по:</span>
-        <SelectItem v-model="selectedSort" :options="sortOptions" />
+        <SelectItem
+          v-model="this.$store.state.selectedSort"
+          :options="this.$store.state.sortOptons"
+        />
       </div>
     </div>
     <div class="todo-header">
@@ -23,7 +30,11 @@
       </div>
     </div>
     <div v-if="this.$store.state.posts.length == 0">Дел пока нет</div>
-    <div v-else class="todo-container" v-for="post in searchPost">
+    <div
+      v-else
+      class="todo-container"
+      v-for="post in this.$store.getters.searchPost"
+    >
       <TodoItem :post="post" :key="post.body" />
     </div>
     <PostForm v-model:show="visibleForm" />
@@ -38,38 +49,10 @@ export default {
   name: "App",
   data() {
     return {
-      searchQuery: "",
-      postsLoaded: false,
       visibleForm: false,
-      selectedSort: "",
-      sortOptions: [
-        { value: "date", name: "Дата" },
-        { value: "done", name: "Статус" },
-      ],
     };
   },
   components: { TodoItem, PostForm, SelectItem },
-  computed: {
-    sortedPosts() {
-      if(this.selectedSort == "done"){
-        return [...this.$store.state.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
-      } else {
-        return [...this.$store.state.posts].sort((a, b) => new Date(b.date) - new Date(a.date))
-      
-        
-      }
-      
-      
-    },
-    searchPost() {
-      return this.sortedPosts.filter(
-        (post => post.body.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
-        post.id.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
-        post.date.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
-        post.done.toLowerCase().includes(this.searchQuery.toLowerCase()))
-      );
-    },
-  },
   methods: {
     showForm() {
       this.visibleForm = true;
@@ -83,6 +66,14 @@ export default {
 };
 </script>
 <style>
+* {
+  font-family: "Vela Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 132%;
+}
+
 img {
   width: 18px;
   height: 18px;
@@ -110,6 +101,7 @@ img {
 
 .radio-btn {
   font-family: "Roboto";
+  font-weight: 100;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -117,7 +109,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .search-panel {
@@ -135,12 +127,19 @@ img {
   min-width: 250px;
   border: none;
   margin-left: 10px;
+  font-family: "Vela Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 132%;
+  outline: 0;
+  outline-offset: 0;
 }
 
 .left-border {
-  border-left: solid 1px gray;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  border-left: solid 1px #c4c4c4;
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 6px;
 }
 
@@ -163,5 +162,8 @@ img {
 .todo-header__date {
   margin-right: 100px;
   margin-left: 65px;
+}
+.todo-container:last-child {
+  border-bottom: 1px solid #eeebe9;
 }
 </style>

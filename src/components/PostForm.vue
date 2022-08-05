@@ -1,13 +1,25 @@
 <template>
   <div v-if="show" class="post-form" @click.stop="hideForm">
     <form @click.stop class="form-content" @submit.prevent>
-      <div @click.stop="hideForm"> X </div>
-      <h4>Создание поста</h4>
+      <div class="post-form-title-group">
+        <div class="post-form-title">Создать новую задачу</div>
+        <div class="post-form-btn-x" @click.stop="hideForm">
+          <div>&#9747;</div>
+        </div>
+      </div>
       <span>Описание</span>
-      <input v-model.trim="this.body" type="text" />
+      <input
+        v-model.trim="this.body"
+        type="text"
+        autofocus
+        placeholder="Введите описание"
+      />
       <button
-        style="align-self: flex-end; margin-top: 15px"
-        @click.prevent="createPost(); hideForm();"
+        class="post-form-btn"
+        @click.prevent="
+          createPost();
+          hideForm();
+        "
       >
         Создать
       </button>
@@ -29,21 +41,20 @@ export default {
     },
   },
   methods: {
-    hideForm(){
-      this.$emit('update:show', false)
+    hideForm() {
+      this.$emit("update:show", false);
     },
     createPost() {
       const newPost = {
-        id: toString(Date.now()) ,
+        id: toString(Date.now()),
         body: this.body,
         date: new Date().toLocaleDateString(),
         done: "В работе",
       };
-      if(this.body){
-      this.$store.state.posts.push(newPost);
-      console.log(this.$store.state.posts)
-      localStorage.posts = JSON.stringify(this.$store.state.posts);
-      this.body = "";
+      if (this.body) {
+        this.$store.state.posts.push(newPost);
+        localStorage.posts = JSON.stringify(this.$store.state.posts);
+        this.body = "";
       }
     },
   },
@@ -51,6 +62,42 @@ export default {
 </script>
 
 <style scoped>
+input {
+  margin-top: 5px;
+  outline: 0;
+  outline-offset: 0;
+  padding: 5px;
+  border: #dde2e4 1px solid;
+  height: 28px;
+  border-radius: 8px;
+}
+
+.post-form-btn {
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f0f5ff;
+  color: #314b99;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 132%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 30px;
+  padding: 12px 40px;
+}
+
+.post-form-btn:hover {
+  background-color: #4864df;
+  color: white;
+  transition: 0.2s linear;
+}
+.post-form-btn:active {
+  background-color: #8a8d99;
+}
 .post-form {
   top: 0;
   bottom: 0;
@@ -61,6 +108,29 @@ export default {
   backdrop-filter: blur(2px);
   position: fixed;
   display: flex;
+}
+.post-form-title-group {
+  display: flex;
+  margin-bottom: 30px;
+}
+.post-form-btn-x {
+  margin-left: 60px;
+  display: flex;
+  background-color: #314b99;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.post-form-title {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 132%;
 }
 
 form {

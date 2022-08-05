@@ -52,18 +52,28 @@ export default {
   margin-left: 15px;
   margin-right: 18px;
 }
+
 .todo-item__date {
   margin-right: 50px;
   margin-left: 50px;
 }
 
 .todo-item {
+  align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   text-align: left;
+  border-top: 1px solid #EEEBE9;;
+  height: 58px;
+  margin: 0;
 }
+
+.todo-item:hover{
+  background-color: #F6F9FF;
+}
+
 .todo-item-side {
   display: flex;
 }
@@ -77,6 +87,7 @@ export default {
 .done {
   color: #134ec1;
 }
+
 .in-progress {
   color: #f89b11;
 }
