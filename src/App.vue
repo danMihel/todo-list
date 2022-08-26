@@ -6,7 +6,6 @@
         <img src="@/assets/plus.svg" />
       </div>
     </div>
-
     <div class="search-panel-container">
       <div class="search-panel">
         <img src="@/assets/Vector.svg" />
@@ -25,14 +24,7 @@
         />
       </div>
     </div>
-
-    <div class="todo-header">
-      <div class="todo-header__discript left-border">Описание</div>
-      <div class="date-container">
-        <div class="todo-header__status left-border">Статус</div>
-        <div class="todo-header__date left-border">Дата</div>
-      </div>
-    </div>
+    <TodoHeader/>
     <div class="no-todos" v-if="this.$store.state.posts.length == 0">
       Дел пока нет
     </div>
@@ -51,6 +43,7 @@
 import TodoItem from "./components/TodoItem.vue";
 import PostForm from "./components/PostForm.vue";
 import SelectItem from "./components/SelectItem.vue";
+import TodoHeader from "./components/TodoHeader.vue";
 export default {
   name: "App",
   data() {
@@ -58,7 +51,7 @@ export default {
       visibleForm: false,
     };
   },
-  components: { TodoItem, PostForm, SelectItem },
+  components: { TodoItem, PostForm, SelectItem, TodoHeader },
   methods: {
     showForm() {
       this.visibleForm = true;
@@ -76,6 +69,10 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+#app{
+    font-family: "Vela Sans";
+
 }
 
 .container {
@@ -131,7 +128,7 @@ export default {
 .search-input {
   min-width: 250px;
   border: none;
-  margin-left: 10px;
+  margin-left: 16px;
   outline: 0;
   outline-offset: 0;
 }
@@ -161,34 +158,6 @@ input::-webkit-input-placeholder {
   color: #16191D;
 }
 
-.left-border {
-  border-left: solid 1px #c4c4c4;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 20px;
-}
-
-.todo-header {
-  margin-top: 10px;
-  margin-bottom: 16px;
-  margin-left: 30px;
-  display: flex;
-  justify-content: space-between;
-  text-align: left;
-}
-
-.date-container {
-  display: flex;
-}
-
-.todo-header__discript {
-  margin-left: 50px;
-}
-
-.todo-header__date {
-  margin-right: 100px;
-  margin-left: 65px;
-}
 .todo-container:last-child {
   border-bottom: 1px solid #eeebe9;
 }

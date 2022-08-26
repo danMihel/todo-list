@@ -4,10 +4,10 @@
       <div class="post-form-title-group">
         <div class="post-form-title">Создать новую задачу</div>
         <div class="post-form-btn-x" @click.stop="hideForm">
-          <div>&#9747;</div>
+          <img src="@/assets/x.svg" />
         </div>
       </div>
-      <span>Описание</span>
+      <div class="post-form_dis">Описание</div>
       <input
         v-model.trim="this.body"
         type="text"
@@ -71,7 +71,13 @@ input {
   height: 28px;
   border-radius: 8px;
 }
-
+.post-form_dis{
+font-family: 'AGAvantGardeCyr';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 14px;
+}
 .post-form-btn {
   height: 50px;
   width: 150px;
@@ -127,7 +133,8 @@ input {
   cursor: pointer;
 }
 .post-form-title {
-  font-family: "Roboto";
+  font-family: "Montserrat";
+  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 132%;

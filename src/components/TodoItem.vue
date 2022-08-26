@@ -1,23 +1,21 @@
 <template>
   <div class="todo-item">
-    <div class="todo-item-side">
-      <div class="todo-item-input-ring" :class="{ active: checked === true }">
-        <img v-if="this.checked === true" src="@/assets/check.svg" />
-        <input
-          class="todo-item__input"
-          @change="onDone"
-          type="checkbox"
-          id="checkbox"
-          v-model="checked"
-        />
-      </div>
-      <div class="todo-item__item">{{ post.body }}</div>
+    <div class="todo-item-input-ring" :class="{ active: checked === true }">
+      <img v-if="this.checked === true" src="@/assets/check.svg" />
+      <input
+        class="todo-item__input"
+        @change="onDone"
+        type="checkbox"
+        id="checkbox"
+        v-model="checked"
+      />
     </div>
+    <div class="todo-item__item">{{ post.body }}</div>
     <div class="todo-item__date-container">
       <div class="done" v-if="this.checked === true">Выполнено</div>
       <div class="in-progress" v-else>В работе</div>
-      <div class="todo-item__date">{{ post.date }}</div>
     </div>
+    <div class="todo-item__date">{{ post.date }}</div>
   </div>
 </template>
 <script>
@@ -74,26 +72,28 @@ export default {
   justify-content: center;
   margin: 0 40px;
   background: #ffffff;
+  margin: 0 40px;
 }
 .todo-item-input-ring img {
   position: relative;
 }
 
 .todo-item__date {
-  margin-right: 50px;
-  margin-left: 50px;
+  margin-right: 70px;
+  
 }
 
 .todo-item {
   align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
   display: flex;
-  justify-content: space-between;
   text-align: left;
   border-top: 1px solid #eeebe9;
-  height: 58px;
   margin: 0;
+  padding: 20px 0px;
+}
+.todo-item__item {
+  padding-left: 20px;
+  margin-right: auto;
 }
 
 .todo-item:hover {
@@ -106,8 +106,8 @@ export default {
 
 .todo-item__date-container {
   display: flex;
-  justify-content: space-between;
-  min-width: 300px;
+  width: 151px;
+
 }
 
 .done {

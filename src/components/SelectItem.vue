@@ -29,12 +29,12 @@ export default {
 
 <style>
 select {
-  border: none;
-  outline: none;
-  text-align: right;
   font-family: "Vela Sans";
   font-style: normal;
   font-weight: 400;
+  border: none;
+  outline: none;
+  text-align: right;
   font-size: 14px;
   line-height: 132%;
   color: #16191d;
