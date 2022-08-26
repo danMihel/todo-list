@@ -19,7 +19,7 @@
 	font-style: normal;
 }
 @font-face {
-	font-family: "AGAvantGardeCyr Book";
+	font-family: "AGAvantGardeCyr";
 	src:url("agavantgardecyr-book.woff") format("woff"), /* Modern Browsers */
 		url("agavantgardecyr-book.woff2") format("woff2"); /* Modern Browsers */
 	font-weight: normal;

@@ -70,13 +70,30 @@ input {
   border: #dde2e4 1px solid;
   height: 28px;
   border-radius: 8px;
+  padding: 11px 16px;
 }
-.post-form_dis{
-font-family: 'AGAvantGardeCyr';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 14px;
+input::-moz-placeholder {
+  font-family: "Vela Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 132%;
+  color: #c4c4c4;
+}
+input::-webkit-input-placeholder {
+  font-family: "Vela Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 132%;
+  color: #c4c4c4;
+}
+.post-form_dis {
+  font-family: "AGAvantGardeCyr";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
 }
 .post-form-btn {
   height: 50px;
@@ -95,7 +112,6 @@ line-height: 14px;
   margin-top: 30px;
   padding: 12px 40px;
 }
-
 .post-form-btn:hover {
   background-color: #4864df;
   color: white;
@@ -139,7 +155,6 @@ line-height: 14px;
   font-size: 18px;
   line-height: 132%;
 }
-
 form {
   margin: auto;
   display: flex;

@@ -12,7 +12,7 @@
         <input
           class="search-input"
           type=" text"
-          placeholder="Поиск ID, Имени, статуса или даты"
+          placeholder="Поиск Имени, статуса или даты"
           v-model="this.$store.state.searchQuery"
         />
       </div>
@@ -24,7 +24,7 @@
         />
       </div>
     </div>
-    <TodoHeader/>
+    <TodoHeader />
     <div class="no-todos" v-if="this.$store.state.posts.length == 0">
       Дел пока нет
     </div>
@@ -70,24 +70,20 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-#app{
-    font-family: "Vela Sans";
-
+#app {
+  font-family: "Vela Sans";
 }
-
 .container {
   margin: auto;
   padding: 40px;
   max-width: 1300px;
 }
-
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 40px;
 }
-
 .header {
   font-family: "Montserrat";
   font-style: normal;
@@ -95,12 +91,10 @@ export default {
   font-size: 24px;
   line-height: 132%;
 }
-
 .no-todos {
   font-size: 3rem;
   text-align: center;
 }
-
 .radio-btn {
   width: 40px;
   height: 40px;
@@ -111,7 +105,6 @@ export default {
   justify-content: center;
   cursor: pointer;
 }
-
 .search-panel-container {
   display: flex;
   flex-direction: row;
@@ -119,16 +112,16 @@ export default {
   align-items: baseline;
   margin: 30px 40px;
 }
-
 .search-panel {
   display: flex;
   align-items: center;
 }
-
+.search-panel img {
+  margin-right: 16px;
+}
 .search-input {
   min-width: 250px;
   border: none;
-  margin-left: 16px;
   outline: 0;
   outline-offset: 0;
 }
@@ -148,16 +141,14 @@ input::-webkit-input-placeholder {
   line-height: 132%;
   color: #c4c4c4;
 }
-
 .search-panel-filter-group {
   font-family: "Vela Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 132%;
-  color: #16191D;
+  color: #16191d;
 }
-
 .todo-container:last-child {
   border-bottom: 1px solid #eeebe9;
 }

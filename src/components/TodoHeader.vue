@@ -22,19 +22,18 @@ export default {
   margin-bottom: 16px;
   display: flex;
   text-align: left;
-  justify-items: center;
+  justify-items: flex-start;
 }
-
 .todo-header-spaser {
   width: 20px;
-  margin: 0 40px;
+  margin-left: 40px;
+  margin-right: 16px;
 }
-
 .date-container {
   display: flex;
   align-items: center;
+  width: 300px;
 }
-
 .todo-header__discript {
   margin-right: auto;
   border-left: solid 1px #c4c4c4;
