@@ -1,5 +1,6 @@
 <template>
   <div class="todo-item">
+    <div>
     <div class="todo-item-input-ring" :class="{ active: checked === true }">
       <img v-if="this.checked === true" src="@/assets/check.svg" />
       <input
@@ -9,6 +10,7 @@
         id="checkbox"
         v-model="checked"
       />
+    </div>
     </div>
     <div class="todo-item__item">{{ post.body }}</div>
     <div class="todo-item__date-container">
@@ -93,9 +95,9 @@ export default {
   padding: 20px 0px;
 }
 .todo-item__item {
-  padding-left: 30px;
+  padding-left: 20px;
   margin-right: auto;
-  
+  width: 62%;
 }
 
 .todo-item:hover {

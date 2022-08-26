@@ -41,6 +41,7 @@ export default {
   padding-left: 20px;
   padding-top: 7px;
   padding-bottom: 7px;
+  width: 65%;
 }
 .todo-header__status {
   border-left: solid 1px #c4c4c4;
