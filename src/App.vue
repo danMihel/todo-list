@@ -2,11 +2,14 @@
   <div class="container">
     <div class="header-container">
       <div class="header">To do list</div>
-      <div @click="showForm" class="radio-btn">+</div>
+      <div @click="showForm" class="radio-btn">
+        <img src="@/assets/plus.svg" />
+      </div>
     </div>
-    <div class="search-panel">
-      <div>
-        <img src="@/assets/Vector.png" />
+
+    <div class="search-panel-container">
+      <div class="search-panel">
+        <img src="@/assets/Vector.svg" />
         <input
           class="search-input"
           type=" text"
@@ -14,7 +17,7 @@
           v-model="this.$store.state.searchQuery"
         />
       </div>
-      <div>
+      <div class="search-panel-filter-group">
         <span>Сортировать по:</span>
         <SelectItem
           v-model="this.$store.state.selectedSort"
@@ -22,6 +25,7 @@
         />
       </div>
     </div>
+
     <div class="todo-header">
       <div class="todo-header__discript left-border">Описание</div>
       <div class="date-container">
@@ -29,7 +33,9 @@
         <div class="todo-header__date left-border">Дата</div>
       </div>
     </div>
-    <div v-if="this.$store.state.posts.length == 0">Дел пока нет</div>
+    <div class="no-todos" v-if="this.$store.state.posts.length == 0">
+      Дел пока нет
+    </div>
     <div
       v-else
       class="todo-container"
@@ -67,28 +73,22 @@ export default {
 </script>
 <style>
 * {
-  font-family: "Vela Sans";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 132%;
-}
-
-img {
-  width: 18px;
-  height: 18px;
-  margin: auto;
-  padding-right: 10px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .container {
-  margin-left: 40px;
-  margin-right: 40px;
+  margin: auto;
+  padding: 40px;
+  max-width: 1300px;
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin: 0 40px;
 }
 
 .header {
@@ -99,9 +99,12 @@ img {
   line-height: 132%;
 }
 
+.no-todos {
+  font-size: 3rem;
+  text-align: center;
+}
+
 .radio-btn {
-  font-family: "Roboto";
-  font-weight: 100;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -109,43 +112,66 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  cursor: pointer;
+}
+
+.search-panel-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 30px 40px;
 }
 
 .search-panel {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-.search-panel img {
-  padding-left: 10px;
+  align-items: center;
 }
 
 .search-input {
   min-width: 250px;
   border: none;
   margin-left: 10px;
+  outline: 0;
+  outline-offset: 0;
+}
+.search-input::-moz-placeholder {
   font-family: "Vela Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 132%;
-  outline: 0;
-  outline-offset: 0;
+  color: #c4c4c4;
+}
+input::-webkit-input-placeholder {
+  font-family: "Vela Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 132%;
+  color: #c4c4c4;
+}
+
+.search-panel-filter-group {
+  font-family: "Vela Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 132%;
+  color: #16191D;
 }
 
 .left-border {
   border-left: solid 1px #c4c4c4;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 6px;
+  padding-left: 20px;
 }
 
 .todo-header {
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  margin-left: 30px;
   display: flex;
   justify-content: space-between;
   text-align: left;
