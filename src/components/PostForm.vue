@@ -68,7 +68,6 @@ input {
   outline-offset: 0;
   padding: 5px;
   border: #dde2e4 1px solid;
-  height: 28px;
   border-radius: 8px;
   padding: 11px 16px;
 }
