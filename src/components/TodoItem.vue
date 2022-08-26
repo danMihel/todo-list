@@ -1,8 +1,10 @@
 <template>
   <div class="todo-item">
     <div class="todo-item-side">
-      <div class="todo-item__input">
+      <div class="todo-item-input-ring" :class="{ active: checked === true }">
+        <img v-if="this.checked === true" src="@/assets/check.svg" />
         <input
+          class="todo-item__input"
           @change="onDone"
           type="checkbox"
           id="checkbox"
@@ -23,8 +25,8 @@ export default {
   name: "todoItem",
   data() {
     return {
-        checked: ''
-    }
+      checked: Boolean,
+    };
   },
   props: {
     post: {
@@ -34,23 +36,47 @@ export default {
   },
   methods: {
     onDone() {
-      this.post.done === "Выполнено" ? this.post.done = "В работе" : this.post.done = "Выполнено";
-      localStorage.posts = JSON.stringify( this.$store.state.posts)
-    }
+      this.post.done === "Выполнено"
+        ? (this.post.done = "В работе")
+        : (this.post.done = "Выполнено");
+      localStorage.posts = JSON.stringify(this.$store.state.posts);
+    },
   },
   mounted() {
     if (this.post.done === "Выполнено") {
-      this.checked = true
+      this.checked = true;
     }
   },
-   update(){
-  }
+  update() {},
 };
 </script>
 <style>
 .todo-item__input {
-  margin-left: 15px;
-  margin-right: 18px;
+  opacity: 0;
+  position: relative;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+}
+.active {
+  border: 1px solid #134ec1 !important;
+  background: #ffffff;
+  border: 1px solid #134ec1;
+  box-shadow: 0px 4px 4px rgba(19, 78, 193, 0.15);
+}
+.todo-item-input-ring {
+  border: 1px solid #16191d;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 40px;
+  background: #ffffff;
+}
+.todo-item-input-ring img {
+  position: relative;
 }
 
 .todo-item__date {
@@ -65,13 +91,13 @@ export default {
   display: flex;
   justify-content: space-between;
   text-align: left;
-  border-top: 1px solid #EEEBE9;;
+  border-top: 1px solid #eeebe9;
   height: 58px;
   margin: 0;
 }
 
-.todo-item:hover{
-  background-color: #F6F9FF;
+.todo-item:hover {
+  background-color: #f6f9ff;
 }
 
 .todo-item-side {
