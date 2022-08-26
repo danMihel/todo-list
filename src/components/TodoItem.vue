@@ -79,7 +79,8 @@ export default {
 }
 
 .todo-item__date {
-  margin-right: 70px;
+  margin-right: 55px;
+  margin-left: 30px;
   
 }
 
@@ -92,8 +93,9 @@ export default {
   padding: 20px 0px;
 }
 .todo-item__item {
-  padding-left: 20px;
+  padding-left: 30px;
   margin-right: auto;
+  
 }
 
 .todo-item:hover {
@@ -106,8 +108,7 @@ export default {
 
 .todo-item__date-container {
   display: flex;
-  width: 151px;
-
+  width: 120px;
 }
 
 .done {
